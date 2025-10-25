@@ -1,0 +1,21 @@
+{
+  "likedJokes": [
+    {
+      "id": 224,
+      "setup": "What do you call someone with no nose?",
+      "punchline": "Nobody knows."
+    },
+    {
+      "id": 66,
+      "setup": "Did you watch the new comic book movie?",
+      "punchline": "It was very graphic!"
+    }
+  ],
+  "savedJokes": [
+    {
+      "id": 351,
+      "setup": "Why do scuba divers fall backwards into the water?",
+      "punchline": "Because if they fell forwards they’d still be in the boat."
+    }
+  ]
+}

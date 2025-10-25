@@ -1,0 +1,172 @@
+/* Saved.scss */
+
+// Импорт шрифта
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700");
+
+// Цветовая палитра из твоего основного файла
+:root {
+  --backgroundColor: rgba(246, 241, 209, 0.7);
+  --colorShadeA: rgb(106, 163, 137);
+  --colorShadeB: rgb(121, 186, 156);
+  --colorShadeD: rgb(187, 232, 211);
+  --colorShadeE: rgb(205, 255, 232);
+}
+
+// Анимация плавного появления
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Стили для всей страницы
+.saved-page {
+  background-color: var(--backgroundColor);
+  font-family: "Open Sans", sans-serif;
+  min-height: 100vh;
+  padding: 3rem 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+// Основной контейнер-карточка
+.saved-container {
+  width: 100%;
+  max-width: 700px;
+  background-color: #ffffff;
+  border-radius: 1em;
+  padding: 2rem;
+  box-shadow: 0 5px 25px rgba(0, 0, 0, 0.1);
+  animation: fadeIn 0.5s ease-out;
+}
+
+// Заголовок
+.saved-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--colorShadeE);
+  margin-bottom: 2rem;
+  padding-bottom: 1rem;
+
+  h1 {
+    color: var(--colorShadeA);
+    font-size: 2.2rem;
+  }
+}
+
+// Кнопка "Назад"
+.back-link {
+  display: inline-block;
+  text-decoration: none;
+  font-weight: 700;
+  color: var(--colorShadeA);
+  background-color: var(--colorShadeE);
+  padding: 0.7em 1.4em;
+  border-radius: 0.7em;
+  border: 2px solid var(--colorShadeD);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: var(--colorShadeD);
+  }
+}
+
+// Список шуток
+.jokes-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+// Отдельная карточка шутки
+.joke-item {
+  background-color: #f8fdfb;
+  border-left: 5px solid var(--colorShadeB);
+  padding: 1.5rem;
+  border-radius: 0.5em;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  animation: fadeIn 0.5s ease-out forwards;
+  opacity: 0; 
+  
+  @for $i from 1 through 20 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.setup {
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 1rem;
+}
+
+.punchline {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--colorShadeA);
+}
+
+// Сообщение о загрузке или пустом списке
+.list-message {
+  text-align: center;
+  font-style: italic;
+  color: #888;
+  padding: 2rem;
+}
+
+/* Добавить в конец файла Saved.scss */
+
+// Изменяем .joke-item, чтобы разместить кнопку
+.joke-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+
+  // ... все остальные стили для .joke-item остаются как есть
+}
+
+.joke-content {
+  flex-grow: 1;
+}
+
+// Стили для кнопки удаления
+.delete-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #f1f1f1;
+  border: 1px solid #ddd;
+  color: #999;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+
+  &:hover {
+    background: #e53935;
+    color: white;
+    border-color: #d32f2f;
+    transform: scale(1.1);
+  }
+}
