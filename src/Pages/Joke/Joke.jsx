@@ -136,15 +136,11 @@ const Joke = () => {
         </div>
       </div>
       <div className="liked_saved">
-        <button>
-          <Link to={"/liked"}>
-            <span className="button-text">Liked</span>
-          </Link>
+        <button className="nav-button">
+          <Link to={"/liked"}>Liked</Link>
         </button>
-        <button>
-          <Link to={"/saved"}>
-            <span className="button-text">Saved</span>
-          </Link>
+        <button className="nav-button">
+          <Link to={"/saved"}>Saved</Link>
         </button>
       </div>
     </div>

@@ -536,7 +536,7 @@
   align-items: center;
   gap: 10px;
 
-  button {
+  .nav-button {
     padding: 0.5rem;
     display: flex;
     justify-content: center;
@@ -594,6 +594,7 @@ a {
   color: var(--colorShadeA);
 }
 
+/* Мобильные стили ТОЛЬКО для liked_saved кнопок */
 @media (max-width: 768px) {
   .liked_saved {
     background: transparent !important;
@@ -607,7 +608,7 @@ a {
     border: none !important;
     gap: 15px;
 
-    button {
+    .nav-button {
       background: var(--colorShadeE) !important;
       border: 2px solid var(--colorShadeA) !important;
       border-radius: 1em !important;
@@ -618,11 +619,6 @@ a {
       align-items: center;
       padding: 0 !important;
       font-size: 1.2rem;
-
-      // ВАЖНО: Добавляем скрытие текста только для кнопок в liked_saved
-      .button-text {
-        display: none;
-      }
 
       &::before {
         display: block !important;
@@ -635,20 +631,33 @@ a {
         align-items: center;
         width: 100%;
         height: 100%;
-        // Убираем текст для мобильных
-        font-size: 0;
-        
-        // Добавляем псевдоэлементы с эмодзи
+        font-size: 0; /* Скрываем текст */
+
+        /* Показываем эмодзи вместо текста */
         &[href="/liked"]::after {
           content: "❤️";
           font-size: 1.2rem;
         }
-        
+
         &[href="/saved"]::after {
           content: "📁";
           font-size: 1.2rem;
         }
       }
+    }
+  }
+
+  /* Убедимся, что основные кнопки навигации работают правильно */
+  .btn_navigation {
+    .big-button {
+      font-size: 0.9rem;
+      padding: 0.7em 0.8em;
+      min-width: 70px;
+
+      /* Явно показываем текст на основных кнопках */
+      color: var(--colorShadeA) !important;
+      opacity: 1 !important;
+      visibility: visible !important;
     }
   }
 }
@@ -662,17 +671,16 @@ a {
       font-size: 1.2rem;
       line-height: 1.4;
     }
-    
+
     .btn_navigation {
       button {
-        // Убедимся, что текст виден на основных кнопках
         min-width: 80px;
-        font-size: 0.9rem; // Чуть уменьшаем шрифт для мобильных
-        padding: 0.7em 0.5em;
+        font-size: 0.85rem;
+        padding: 0.6em 0.5em;
       }
     }
   }
-  
+
   .liked_saved {
     background: transparent !important;
     width: auto !important;
@@ -685,7 +693,7 @@ a {
     border: none !important;
     gap: 15px;
 
-    button {
+    .nav-button {
       background: var(--colorShadeE) !important;
       border: 2px solid var(--colorShadeA) !important;
       border-radius: 2em !important;
@@ -696,11 +704,6 @@ a {
       align-items: center;
       padding: 0 !important;
       font-size: 1rem;
-
-      // Скрываем текст для мобильных
-      .button-text {
-        display: none;
-      }
 
       &::before {
         display: block !important;
@@ -713,20 +716,30 @@ a {
         align-items: center;
         width: 100%;
         height: 100%;
-        // Убираем текст
         font-size: 0;
-        
-        // Добавляем эмодзи вместо текста
+
         &[href="/liked"]::after {
           content: "❤️";
           font-size: 1rem;
         }
-        
+
         &[href="/saved"]::after {
           content: "📁";
           font-size: 1rem;
         }
       }
     }
+  }
+}
+
+/* Дополнительная защита для текста основных кнопок */
+.big-button {
+  /* Гарантируем, что текст всегда виден */
+  span,
+  &::after,
+  &::before {
+    color: var(--colorShadeA) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
   }
 }
