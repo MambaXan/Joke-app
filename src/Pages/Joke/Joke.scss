@@ -236,6 +236,7 @@ a {
       align-items: center;
       border-radius: 50%;
 
+      // ТОЛЬКО для текста внутри nav-button скрываем
       .nav-button-text {
         display: none;
       }
@@ -266,6 +267,17 @@ a {
       font-size: 0.9rem;
       padding: 0.7em 0.8em;
       min-width: 70px;
+      
+      // ГАРАНТИРУЕМ что текст виден на основных кнопках
+      color: var(--colorShadeA) !important;
+      
+      // Явно показываем span внутри big-button
+      span {
+        display: block !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        color: var(--colorShadeA) !important;
+      }
     }
   }
 }
@@ -283,6 +295,15 @@ a {
         min-width: 80px;
         font-size: 0.85rem;
         padding: 0.6em 0.5em;
+        
+        // Дополнительная защита для текста
+        span {
+          display: block !important;
+          opacity: 1 !important;
+          visibility: visible !important;
+          color: var(--colorShadeA) !important;
+          font-size: inherit !important;
+        }
       }
     }
   }
@@ -307,4 +328,19 @@ a {
       }
     }
   }
+}
+
+.big-button,
+.big-button * {
+  color: var(--colorShadeA) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.btn_navigation .big-button,
+.btn_navigation .big-button * {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  color: var(--colorShadeA) !important;
 }

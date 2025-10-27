@@ -123,6 +123,7 @@ const Joke = () => {
             </>
           )}
         </div>
+        {/* Основные кнопки - БЕЗ span */}
         <div className="btn_navigation">
           <button
             className="big-button"
@@ -139,6 +140,7 @@ const Joke = () => {
           </button>
         </div>
 
+        {/* Кнопки навигации - СО span */}
         <div className="liked_saved">
           <button className="nav-button">
             <Link to={"/liked"}>
