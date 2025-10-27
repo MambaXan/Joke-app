@@ -7,25 +7,28 @@ const Joke = () => {
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
 
-  // Принудительное применение стилей при каждом рендере
+  // Принудительно применяем стили при каждом рендере
   useEffect(() => {
-    const forceButtonStyles = () => {
-      const buttons = document.querySelectorAll('.big-button');
-      buttons.forEach(button => {
-        button.style.color = 'rgb(106, 163, 137)';
-        button.style.opacity = '1';
-        button.style.visibility = 'visible';
+    const applyStyles = () => {
+      const buttons = document.querySelectorAll(".big-button");
+      buttons.forEach((button) => {
+        button.style.setProperty("color", "rgb(106, 163, 137)", "important");
+        button.style.setProperty("opacity", "1", "important");
+        button.style.setProperty("visibility", "visible", "important");
       });
     };
 
-    forceButtonStyles();
-    setTimeout(forceButtonStyles, 100);
-    setTimeout(forceButtonStyles, 500);
-  });
+    applyStyles();
+    const interval = setInterval(applyStyles, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
-  const getLikedJokes = () => JSON.parse(localStorage.getItem("likedJokes")) || [];
-  const getSavedJokes = () => JSON.parse(localStorage.getItem("savedJokes")) || [];
-  const getCurrentJoke = () => JSON.parse(localStorage.getItem("currentJoke")) || null;
+  const getLikedJokes = () =>
+    JSON.parse(localStorage.getItem("likedJokes")) || [];
+  const getSavedJokes = () =>
+    JSON.parse(localStorage.getItem("savedJokes")) || [];
+  const getCurrentJoke = () =>
+    JSON.parse(localStorage.getItem("currentJoke")) || null;
 
   const saveCurrentJoke = (currentJoke) => {
     localStorage.setItem("currentJoke", JSON.stringify(currentJoke));
@@ -36,7 +39,11 @@ const Joke = () => {
     fetch("https://official-joke-api.appspot.com/random_joke")
       .then((res) => res.json())
       .then((data) => {
-        const newJoke = { id: data.id, setup: data.setup, punchline: data.punchline };
+        const newJoke = {
+          id: data.id,
+          setup: data.setup,
+          punchline: data.punchline,
+        };
         setJoke(newJoke);
         saveCurrentJoke(newJoke);
       })
@@ -62,7 +69,7 @@ const Joke = () => {
   const likeJoke = () => {
     if (!joke.id) return;
     const likedJokes = getLikedJokes();
-    if (likedJokes.some(likedJoke => likedJoke.id === joke.id)) {
+    if (likedJokes.some((likedJoke) => likedJoke.id === joke.id)) {
       showMessage("U've already liked this joke");
       return;
     }
@@ -73,7 +80,7 @@ const Joke = () => {
   const savedJoke = () => {
     if (!joke.id) return;
     const savedJokes = getSavedJokes();
-    if (savedJokes.some(savedJoke => savedJoke.id === joke.id)) {
+    if (savedJokes.some((savedJoke) => savedJoke.id === joke.id)) {
       showMessage("U've already saved this joke");
       return;
     }
@@ -83,24 +90,25 @@ const Joke = () => {
 
   return (
     <div className="joke_app">
-      {/* ТЕСТОВАЯ МЕТКА */}
-      <div style={{
-        position: 'fixed', 
-        top: 10, 
-        left: 10, 
-        background: 'blue', 
-        color: 'white', 
-        padding: '5px 10px',
-        fontSize: '12px',
-        zIndex: 9999
-      }}>
-        FIXED LAYOUT: {new Date().toLocaleTimeString()}
+      <div
+        style={{
+          position: "fixed",
+          top: 10,
+          left: 10,
+          background: "red",
+          color: "white",
+          padding: "5px 10px",
+          fontSize: "12px",
+          zIndex: 9999,
+        }}
+      >
+        FINAL FIX: {new Date().toLocaleTimeString()}
       </div>
-      
+
       <div className={`message ${message ? "active" : ""}`}>
         {message && <p>{message}</p>}
       </div>
-      
+
       <div className="joke_app_container">
         <div className="joke_app_title">
           {loading ? (
@@ -112,10 +120,13 @@ const Joke = () => {
             </>
           )}
         </div>
-        
-        {/* ОСНОВНЫЕ КНОПКИ - БЕЗ SPAN, ПРОСТО ТЕКСТ */}
+
         <div className="btn_navigation">
-          <button className="big-button" onClick={randomJoke} disabled={loading}>
+          <button
+            className="big-button"
+            onClick={randomJoke}
+            disabled={loading}
+          >
             {loading ? "Wait..." : "Next"}
           </button>
           <button className="big-button" onClick={likeJoke} disabled={loading}>
@@ -126,8 +137,7 @@ const Joke = () => {
           </button>
         </div>
       </div>
-      
-      {/* КНОПКИ НАВИГАЦИИ */}
+
       <div className="liked_saved">
         <button className="nav-button">
           <Link to={"/liked"}>Liked</Link>
