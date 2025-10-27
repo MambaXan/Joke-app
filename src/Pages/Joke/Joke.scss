@@ -108,7 +108,7 @@
     outline: none;
     border: 0;
     font-size: 1rem;
-    color: var(--colorShadeA);
+    color: var(--colorShadeA) !important;
     font-weight: 700;
     text-transform: uppercase;
     font-family: inherit;
@@ -118,6 +118,9 @@
     background: var(--colorShadeE);
     transform-style: preserve-3d;
     transition: all 175ms cubic-bezier(0, 0, 1, 1);
+    /* ЯВНО УКАЗЫВАЕМ ЧТО ТЕКСТ ДОЛЖЕН БЫТЬ ВИДЕН */
+    opacity: 1 !important;
+    visibility: visible !important;
 
     &::before {
       position: absolute;
@@ -222,15 +225,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        
+
         &::after {
           font-size: 1.2rem;
         }
-        
+
         &[href="/liked"]::after {
           content: "❤️";
         }
-        
+
         &[href="/saved"]::after {
           content: "📁";
         }
@@ -243,6 +246,10 @@
       font-size: 0.9rem;
       padding: 0.7em 0.8em;
       min-width: 70px;
+      /* ЯВНО УКАЗЫВАЕМ ДЛЯ МОБИЛЬНЫХ */
+      color: var(--colorShadeA) !important;
+      opacity: 1 !important;
+      visibility: visible !important;
     }
   }
 }
@@ -254,16 +261,20 @@
     .joke_app_title h3 {
       font-size: 1.2rem;
     }
-    
+
     .main-buttons-container {
       .main-btn {
         min-width: 80px;
         font-size: 0.85rem;
         padding: 0.6em 0.5em;
+        /* ЯВНО УКАЗЫВАЕМ ДЛЯ МОБИЛЬНЫХ */
+        color: var(--colorShadeA) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
       }
     }
   }
-  
+
   .liked_saved {
     top: 10px;
     right: 10px;
@@ -277,4 +288,17 @@
       }
     }
   }
+}
+
+/* АБСОЛЮТНАЯ ЗАЩИТА ОТ ЛЮБЫХ ДРУГИХ СТИЛЕЙ */
+.main-btn {
+  color: var(--colorShadeA) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+.main-btn * {
+  color: var(--colorShadeA) !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
