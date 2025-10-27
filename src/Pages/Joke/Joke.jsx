@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./Joke.scss";
 
 const Joke = () => {
   const [joke, setJoke] = useState({ id: null, setup: "", punchline: "" });
   const [loading, setLoading] = useState(true);
   const [message, setMessage] = useState("");
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-  const [buttonsVisible, setButtonsVisible] = useState(true);
-  const location = useLocation();
 
-  const getLikedJokes = () => {
-    return JSON.parse(localStorage.getItem("likedJokes")) || [];
-  };
-
-  const getSavedJokes = () => {
-    return JSON.parse(localStorage.getItem("savedJokes")) || [];
-  };
-
-  const getCurrentJoke = () => {
-    return JSON.parse(localStorage.getItem("currentJoke")) || null;
-  };
+  const getLikedJokes = () => JSON.parse(localStorage.getItem("likedJokes")) || [];
+  const getSavedJokes = () => JSON.parse(localStorage.getItem("savedJokes")) || [];
+  const getCurrentJoke = () => JSON.parse(localStorage.getItem("currentJoke")) || null;
 
   const saveCurrentJoke = (currentJoke) => {
     localStorage.setItem("currentJoke", JSON.stringify(currentJoke));
@@ -31,11 +20,7 @@ const Joke = () => {
     fetch("https://official-joke-api.appspot.com/random_joke")
       .then((res) => res.json())
       .then((data) => {
-        const newJoke = {
-          id: data.id,
-          setup: data.setup,
-          punchline: data.punchline,
-        };
+        const newJoke = { id: data.id, setup: data.setup, punchline: data.punchline };
         setJoke(newJoke);
         saveCurrentJoke(newJoke);
       })
@@ -44,66 +29,39 @@ const Joke = () => {
   };
 
   useEffect(() => {
-    setButtonsVisible(true);
-
     const savedJoke = getCurrentJoke();
-
     if (savedJoke && savedJoke.id) {
       setJoke(savedJoke);
       setLoading(false);
     } else {
       randomJoke();
     }
-  }, [location.key]);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const showMessage = (msg) => {
     setMessage(msg);
-    setTimeout(() => {
-      setMessage("");
-    }, 2000);
+    setTimeout(() => setMessage(""), 2000);
   };
 
   const likeJoke = () => {
     if (!joke.id) return;
-
     const likedJokes = getLikedJokes();
-    const isDuplicate = likedJokes.some(
-      (likedJoke) => likedJoke.id === joke.id
-    );
-
-    if (isDuplicate) {
+    if (likedJokes.some(likedJoke => likedJoke.id === joke.id)) {
       showMessage("U've already liked this joke");
       return;
     }
-
-    const updatedLikedJokes = [...likedJokes, joke];
-    localStorage.setItem("likedJokes", JSON.stringify(updatedLikedJokes));
+    localStorage.setItem("likedJokes", JSON.stringify([...likedJokes, joke]));
     showMessage("U liked this joke 👍");
   };
 
   const savedJoke = () => {
     if (!joke.id) return;
-
     const savedJokes = getSavedJokes();
-    const isDuplicate = savedJokes.some(
-      (savedJoke) => savedJoke.id === joke.id
-    );
-
-    if (isDuplicate) {
+    if (savedJokes.some(savedJoke => savedJoke.id === joke.id)) {
       showMessage("U've already saved this joke");
       return;
     }
-
-    const updatedSavedJokes = [...savedJokes, joke];
-    localStorage.setItem("savedJokes", JSON.stringify(updatedSavedJokes));
+    localStorage.setItem("savedJokes", JSON.stringify([...savedJokes, joke]));
     showMessage("U saved this joke 💾");
   };
 
@@ -112,6 +70,7 @@ const Joke = () => {
       <div className={`message ${message ? "active" : ""}`}>
         {message && <p>{message}</p>}
       </div>
+      
       <div className="joke_app_container">
         <div className="joke_app_title">
           {loading ? (
@@ -123,13 +82,9 @@ const Joke = () => {
             </>
           )}
         </div>
-        {/* Основные кнопки - БЕЗ span */}
+        
         <div className="btn_navigation">
-          <button
-            className="big-button"
-            onClick={randomJoke}
-            disabled={loading}
-          >
+          <button className="big-button" onClick={randomJoke} disabled={loading}>
             {loading ? "Wait..." : "Next"}
           </button>
           <button className="big-button" onClick={likeJoke} disabled={loading}>
@@ -139,20 +94,19 @@ const Joke = () => {
             Save
           </button>
         </div>
-
-        {/* Кнопки навигации - СО span */}
-        <div className="liked_saved">
-          <button className="nav-button">
-            <Link to={"/liked"}>
-              <span className="nav-button-text">Liked</span>
-            </Link>
-          </button>
-          <button className="nav-button">
-            <Link to={"/saved"}>
-              <span className="nav-button-text">Saved</span>
-            </Link>
-          </button>
-        </div>
+      </div>
+      
+      <div className="liked_saved">
+        <button className="nav-button">
+          <Link to={"/liked"}>
+            <span>Liked</span>
+          </Link>
+        </button>
+        <button className="nav-button">
+          <Link to={"/saved"}>
+            <span>Saved</span>
+          </Link>
+        </button>
       </div>
     </div>
   );
