@@ -111,7 +111,6 @@
   color: var(--colorShadeA);
 }
 
-// Сообщение о загрузке или пустом списке
 .list-message {
   text-align: center;
   font-style: italic;
@@ -119,23 +118,17 @@
   padding: 2rem;
 }
 
-/* Добавить в конец файла Saved.scss */
-
-// Изменяем .joke-item, чтобы разместить кнопку
 .joke-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 1rem;
-
-  // ... все остальные стили для .joke-item остаются как есть
 }
 
 .joke-content {
   flex-grow: 1;
 }
 
-// Стили для кнопки удаления
 .delete-btn {
   display: flex;
   justify-content: center;

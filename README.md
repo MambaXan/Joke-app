@@ -1,6 +1,6 @@
 # 😂 Joke App
 
-A fun and interactive Joke App built with **React**. It fetches random jokes from an API, allows users to **like** or **save** them, and stores the favorites using a local JSON database (`json-server`).
+A fun and interactive Joke App built with **React**. It fetches random jokes from an API, allows users to **like** or **save** them, and stores the favorites using a localStorage.
 
 ## 🚀 Features
 
@@ -8,20 +8,20 @@ A fun and interactive Joke App built with **React**. It fetches random jokes fro
 - **Like a Joke**: Click to save jokes you liked into `likedJokes`
 - **Save a Joke**: Click to store jokes into `savedJokes` for later
 - **Message Feedback**: Temporary confirmation after actions
-- **Data Persistence**: Uses `json-server` to simulate backend storage
+- **Data Persistence**: Uses `localStorage` to simulate backend storage
 
 ## 💻 Technologies Used
 
 - React
 - JavaScript (ES6+)
 - localStorage (optional)
-- json-server
+- localStorage
 - HTML5 & SCSS
 
 ## 🧩 How It Works
 
 - When you open the app, it fetches a random joke from [Official Joke API](https://official-joke-api.appspot.com/)
-- Clicking **Like** or **Save** sends the joke to `http://localhost:3001/likedJokes` or `savedJokes` via `fetch POST`
+- Clicking **Like** or **Save** sends the joke to localStorage
 - Feedback messages appear when the joke is saved or liked
 
 ## 📸 Screenshot
