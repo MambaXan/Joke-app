@@ -50,8 +50,5 @@ A fun and interactive Joke App built with **React**. It fetches random jokes fro
 3. Install dependencies
     npm install
 
-4. Run the mock backend
-    npx json-server --watch db.json --port 3001
-
-5. Start the React app
+4. Start the React app
     npm start

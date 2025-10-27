@@ -91,7 +91,7 @@
   }
 }
 
-/* ОСНОВНЫЕ КНОПКИ - НИКАКИХ МЕДИА-ЗАПРОСОВ ДЛЯ ТЕКСТА */
+/* КНОПКИ NEXT, LIKE, SAVE - 3D ЭФФЕКТ */
 .btn_navigation {
   padding: 1.5rem;
   display: flex;
@@ -108,7 +108,7 @@
     outline: none;
     border: 0;
     font-size: 1rem;
-    color: var(--colorShadeA) !important;
+    color: var(--colorShadeA);
     font-weight: 700;
     text-transform: uppercase;
     font-family: inherit;
@@ -118,16 +118,9 @@
     background: var(--colorShadeE);
     transform-style: preserve-3d;
     transition: all 175ms cubic-bezier(0, 0, 1, 1);
-
     /* ГАРАНТИРУЕМ ЧТО ТЕКСТ ВИДЕН */
-    span {
-      display: block !important;
-      opacity: 1 !important;
-      visibility: visible !important;
-      color: var(--colorShadeA) !important;
-      position: relative;
-      z-index: 10;
-    }
+    opacity: 1 !important;
+    visibility: visible !important;
 
     &::before {
       position: absolute;
@@ -174,7 +167,7 @@
   }
 }
 
-/* КНОПКИ НАВИГАЦИИ */
+/* КНОПКИ LIKED, SAVED - ПРОСТЫЕ */
 .liked_saved {
   position: absolute;
   top: 50px;
@@ -209,7 +202,7 @@
   }
 }
 
-/* МОБИЛЬНЫЕ СТИЛИ ТОЛЬКО ДЛЯ РАЗМЕРОВ */
+/* МОБИЛЬНЫЕ СТИЛИ */
 @media (max-width: 768px) {
   .liked_saved {
     top: 20px;
@@ -225,10 +218,6 @@
       justify-content: center;
       align-items: center;
 
-      span {
-        display: none !important;
-      }
-
       a {
         font-size: 0;
         width: 100%;
@@ -236,15 +225,15 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
+        
         &::after {
           font-size: 1.2rem;
         }
-
+        
         &[href="/liked"]::after {
           content: "❤️";
         }
-
+        
         &[href="/saved"]::after {
           content: "📁";
         }
@@ -268,7 +257,7 @@
     .joke_app_title h3 {
       font-size: 1.2rem;
     }
-
+    
     .btn_navigation {
       .big-button {
         min-width: 80px;
@@ -277,7 +266,7 @@
       }
     }
   }
-
+  
   .liked_saved {
     top: 10px;
     right: 10px;
@@ -293,17 +282,18 @@
   }
 }
 
-/* ЯДЕРНАЯ ЗАЩИТА ТЕКСТА */
-.big-button,
+/* АБСОЛЮТНАЯ ЗАЩИТА ТЕКСТА НА КНОПКАХ NEXT, LIKE, SAVE */
+.big-button {
+  color: var(--colorShadeA) !important;
+}
+
+.big-button::after {
+  content: none !important;
+}
+
+/* Принудительное скрытие любых псевдоэлементов, которые могут скрывать текст */
 .big-button * {
   color: var(--colorShadeA) !important;
   opacity: 1 !important;
   visibility: visible !important;
-}
-
-.big-button span {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  color: var(--colorShadeA) !important;
 }
