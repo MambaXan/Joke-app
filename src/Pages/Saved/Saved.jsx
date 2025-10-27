@@ -7,23 +7,26 @@ const Saved = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:3001/savedJokes")
-            .then(res => res.json())
-            .then(data => {
-                setSavedJokes(data);
-            })
-            .catch(err => console.error("Failed to fetch saved jokes:", err))
-            .finally(() => setLoading(false));
+        const loadSavedJokes = () => {
+            try {
+                const jokes = JSON.parse(localStorage.getItem("savedJokes")) || [];
+                setSavedJokes(jokes);
+            } catch (error) {
+                console.error("Failed to load saved jokes:", error);
+                setSavedJokes([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadSavedJokes();
     }, []);
 
-    const handleDeleteJoke = async (idToDelete) => {
+    const handleDeleteJoke = (idToDelete) => {
         try {
-            await fetch(`http://localhost:3001/savedJokes/${idToDelete}`, {
-                method: 'DELETE',
-            });
-            
-            setSavedJokes(prevJokes => prevJokes.filter(joke => joke.id !== idToDelete));
-
+            const updatedJokes = savedJokes.filter(joke => joke.id !== idToDelete);
+            localStorage.setItem("savedJokes", JSON.stringify(updatedJokes));
+            setSavedJokes(updatedJokes);
         } catch (error) {
             console.error("Failed to delete the joke:", error);
         }

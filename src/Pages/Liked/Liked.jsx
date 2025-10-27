@@ -7,23 +7,26 @@ const Liked = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("http://localhost:3001/likedJokes")
-            .then(res => res.json())
-            .then(data => {
-                setLikedJokes(data);
-            })
-            .catch(err => console.error("Failed to fetch liked jokes:", err))
-            .finally(() => setLoading(false));
+        const loadLikedJokes = () => {
+            try {
+                const jokes = JSON.parse(localStorage.getItem("likedJokes")) || [];
+                setLikedJokes(jokes);
+            } catch (error) {
+                console.error("Failed to load liked jokes:", error);
+                setLikedJokes([]);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        loadLikedJokes();
     }, []);
 
-    const handleDeleteJoke = async (idToDelete) => {
+    const handleDeleteJoke = (idToDelete) => {
         try {
-            await fetch(`http://localhost:3001/likedJokes/${idToDelete}`, {
-                method: 'DELETE',
-            });
-
-            setLikedJokes(prevJokes => prevJokes.filter(joke => joke.id !== idToDelete));
-
+            const updatedJokes = likedJokes.filter(joke => joke.id !== idToDelete);
+            localStorage.setItem("likedJokes", JSON.stringify(updatedJokes));
+            setLikedJokes(updatedJokes);
         } catch (error) {
             console.error("Failed to delete the joke:", error);
         }
