@@ -743,3 +743,97 @@ a {
     visibility: visible !important;
   }
 }
+// Добавь эти стили в конец файла:
+
+/* Гарантируем, что текст основных кнопок всегда виден */
+.btn_navigation .big-button {
+  .button-text {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    color: var(--colorShadeA) !important;
+    font-size: inherit !important;
+    position: relative !important;
+    z-index: 2 !important;
+  }
+}
+
+/* Для мобильных - основные кнопки всегда с текстом */
+@media (max-width: 768px) {
+  .btn_navigation .big-button {
+    .button-text {
+      display: block !important;
+      opacity: 1 !important;
+      visibility: visible !important;
+      color: var(--colorShadeA) !important;
+      font-size: 0.9rem !important;
+    }
+  }
+
+  .liked_saved .nav-button {
+    .nav-button-text {
+      display: none !important;
+    }
+
+    a {
+      &[href="/liked"]::after {
+        content: "❤️";
+        font-size: 1.2rem;
+      }
+
+      &[href="/saved"]::after {
+        content: "📁";
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 425px) {
+  .btn_navigation .big-button {
+    .button-text {
+      font-size: 0.85rem !important;
+    }
+  }
+
+  .liked_saved .nav-button {
+    a {
+      &[href="/liked"]::after {
+        font-size: 1rem;
+      }
+
+      &[href="/saved"]::after {
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+/* Дополнительная защита от скрытия текста */
+.big-button {
+  color: var(--colorShadeA) !important;
+
+  * {
+    color: var(--colorShadeA) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+  }
+}
+
+/* Убедимся, что никакие медиа-запросы не скрывают текст основных кнопок */
+@media (max-width: 768px) {
+  .btn_navigation .big-button,
+  .btn_navigation .big-button * {
+    color: var(--colorShadeA) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    font-size: 0.9rem !important;
+  }
+}
+
+@media (max-width: 425px) {
+  .btn_navigation .big-button,
+  .btn_navigation .big-button * {
+    font-size: 0.85rem !important;
+  }
+}
