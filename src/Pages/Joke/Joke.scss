@@ -91,7 +91,6 @@
   }
 }
 
-/* ОСНОВНЫЕ КНОПКИ NEXT, LIKE, SAVE */
 .main-buttons-container {
   padding: 1.5rem;
   display: flex;
@@ -118,7 +117,6 @@
     background: var(--colorShadeE);
     transform-style: preserve-3d;
     transition: all 175ms cubic-bezier(0, 0, 1, 1);
-    /* ЯВНО УКАЗЫВАЕМ ЧТО ТЕКСТ ДОЛЖЕН БЫТЬ ВИДЕН */
     opacity: 1 !important;
     visibility: visible !important;
 
@@ -167,7 +165,6 @@
   }
 }
 
-/* КНОПКИ LIKED, SAVED */
 .liked_saved {
   position: absolute;
   top: 50px;
@@ -202,7 +199,6 @@
   }
 }
 
-/* МОБИЛЬНЫЕ СТИЛИ */
 @media (max-width: 768px) {
   .liked_saved {
     top: 20px;
@@ -246,7 +242,6 @@
       font-size: 0.9rem;
       padding: 0.7em 0.8em;
       min-width: 70px;
-      /* ЯВНО УКАЗЫВАЕМ ДЛЯ МОБИЛЬНЫХ */
       color: var(--colorShadeA) !important;
       opacity: 1 !important;
       visibility: visible !important;
@@ -267,7 +262,6 @@
         min-width: 80px;
         font-size: 0.85rem;
         padding: 0.6em 0.5em;
-        /* ЯВНО УКАЗЫВАЕМ ДЛЯ МОБИЛЬНЫХ */
         color: var(--colorShadeA) !important;
         opacity: 1 !important;
         visibility: visible !important;
@@ -290,7 +284,6 @@
   }
 }
 
-/* АБСОЛЮТНАЯ ЗАЩИТА ОТ ЛЮБЫХ ДРУГИХ СТИЛЕЙ */
 .main-btn {
   color: var(--colorShadeA) !important;
   opacity: 1 !important;

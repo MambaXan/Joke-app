@@ -2,9 +2,7 @@ import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Joke.scss";
 
-// Компонент кнопок внутри файла
 const MainButtons = ({ onNext, onLike, onSave, loading }) => {
-  // Используем useLayoutEffect для применения стилей ДО отрисовки
   useLayoutEffect(() => {
     const forceStyles = () => {
       const buttons = document.querySelectorAll(".main-btn");
@@ -19,7 +17,6 @@ const MainButtons = ({ onNext, onLike, onSave, loading }) => {
     };
 
     forceStyles();
-    // Применяем несколько раз для надежности
     setTimeout(forceStyles, 10);
     setTimeout(forceStyles, 100);
   }, []);
@@ -45,7 +42,6 @@ const Joke = () => {
   const [message, setMessage] = useState("");
   const location = useLocation();
 
-  // Принудительное применение стилей при КАЖДОМ изменении location (переходе между страницами)
   useEffect(() => {
     const applyStyles = () => {
       const buttons = document.querySelectorAll(".main-btn");
@@ -57,7 +53,6 @@ const Joke = () => {
     };
 
     applyStyles();
-    // Применяем стили с разными задержками
     const timeout1 = setTimeout(applyStyles, 50);
     const timeout2 = setTimeout(applyStyles, 200);
     const timeout3 = setTimeout(applyStyles, 500);
@@ -67,7 +62,7 @@ const Joke = () => {
       clearTimeout(timeout2);
       clearTimeout(timeout3);
     };
-  }, [location.key]); // Зависимость от ключа location
+  }, [location.key]);
 
   const getLikedJokes = () =>
     JSON.parse(localStorage.getItem("likedJokes")) || [];
@@ -136,26 +131,9 @@ const Joke = () => {
 
   return (
     <div className="joke_app">
-      {/* Тестовая метка */}
-      <div
-        style={{
-          position: "fixed",
-          top: 10,
-          left: 10,
-          background: "red",
-          color: "white",
-          padding: "5px 10px",
-          fontSize: "12px",
-          zIndex: 9999,
-        }}
-      >
-        ULTIMATE FIX: {new Date().toLocaleTimeString()}
-      </div>
-
       <div className={`message ${message ? "active" : ""}`}>
         {message && <p>{message}</p>}
       </div>
-
       <div className="joke_app_container">
         <div className="joke_app_title">
           {loading ? (
